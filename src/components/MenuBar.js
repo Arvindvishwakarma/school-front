@@ -8,7 +8,7 @@ export default function MenuBar() {
   return (
     <div>
       <Navbar collapseOnSelect expand="lg" variant="light" bg="light">
-        <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
+        <Navbar.Brand href="/">School Allotment System</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="ml-auto">

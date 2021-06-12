@@ -8,6 +8,8 @@ import Contact from './pages/Contact'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Logout from './components/admin/Logout'
+import AddSchool from './components/admin/AddSchool'
+import CheckSchool from './components/admin/CheckSchool'
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
     <Route path="/login"><Login /></Route>
     <Route path="/dashboard"><Dashboard /></Route>
     <Route path="/logout"><Logout /></Route>
+    <Route path="/addSchool"><AddSchool /></Route>
+    <Route path="/checkSchool"><CheckSchool /></Route>
     <Route path="*"><PageNotFound /></Route>
    </Switch>
   );
