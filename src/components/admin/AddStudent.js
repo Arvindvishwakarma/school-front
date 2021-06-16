@@ -323,8 +323,11 @@ export default function AddStudent(props) {
                                                             <Form.Control.Feedback type="invalid">Enter Student's Home's Latitude</Form.Control.Feedback>
                                                         </Form.Group>
                                                     </Form.Row>
-
-                                                    <Button type="submit" variant="success" style={{ borderRadius: '0px' }} className="mx-auto d-block">Add Student</Button>
+                                                    {
+                                                        spin ? <center><Spinner/></center>:
+                                                        <Button type="submit" variant="success" style={{ borderRadius: '0px' }} className="mx-auto d-block">Add Student</Button>
+                                                    }
+                                                    
                                                 </Form>
                                             </Card.Body>
                                         </Card>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import MenuBar from '../MenuBar'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import haversine from 'haversine-distance'
