@@ -3,9 +3,12 @@ import { Card, Button, Form, Col, Container, Row } from 'react-bootstrap'
 import MenuBar from '../MenuBar';
 import Spinner from '../Spinner'
 import { FaCheckCircle, FaExternalLinkAlt } from "react-icons/fa";
-import {Link} from "react-router-dom"
+import {Link, Redirect} from "react-router-dom"
 
 export default function AddStudent(props) {
+    
+    const adminToken = localStorage.getItem('token')
+
     const [validated, setValidated] = useState(false);
     const [spin, setSpin] = useState(false)
     const [formDone, setFormDone] = useState(false)
@@ -94,6 +97,11 @@ export default function AddStudent(props) {
 
         setValidated(true);
     };
+
+    
+    if (!adminToken) {
+        return <Redirect to="/login" />
+    }
 
     return (
         <div>

@@ -51,7 +51,7 @@ export default function CheckMap(props) {
 
                     <Fade top><Col>
                         <Button size="sm" variant="warning" style={{ borderRadius: '0px' }} onClick={()=>setAdd(true)}>Add Student <FaPlusCircle /></Button>
-                        <Button size="sm" variant="danger" style={{ borderRadius: '0px', marginLeft: '20px' }} onClick={()=>setCancle(true)}>Cancle <FaTimesCircle /></Button>
+                        <Button size="sm" variant="danger" style={{ borderRadius: '0px', marginLeft: '20px' }} onClick={()=>setCancle(true)}>Cancel <FaTimesCircle /></Button>
                     </Col></Fade>
                 </Row>
                 <Row style={{ marginTop: '10px' }}>

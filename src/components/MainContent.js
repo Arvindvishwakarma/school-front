@@ -3,6 +3,7 @@ import SchoolImage from '../images/school.png'
 import { Image, Container, Row, Col, Button } from 'react-bootstrap'
 import Fade from 'react-reveal/Fade'
 import Zoom from 'react-reveal/Zoom';
+import {Link} from 'react-router-dom'
 
 export default function MainContent() {
     return (
@@ -15,8 +16,8 @@ export default function MainContent() {
                 </Row>
                 <Row>
                     <Col md={3}></Col>
-                    <Col md={3}><Fade left><Button className="mx-auto d-block" style={{width:'100%', borderRadius:'0px'}}>Allot Schools To Student</Button></Fade></Col>
-                    <Col md={3}><Fade right><Button className="mx-auto d-block" style={{width:'100%', borderRadius:'0px'}}>Map School</Button></Fade></Col>
+                    <Col md={3}><Fade left><Button className="mx-auto d-block" style={{width:'100%', borderRadius:'0px'}}><Link to="/checkSchool" style={{color:'white', textDecoration:'none'}}>Allot Schools To Student</Link></Button></Fade></Col>
+                    <Col md={3}><Fade right><Button className="mx-auto d-block" style={{width:'100%', borderRadius:'0px'}}><Link to="/addSchool" style={{color:'white', textDecoration:'none'}}>Map School</Link></Button></Fade></Col>
                     <Col md={3}></Col>
                 </Row>
 

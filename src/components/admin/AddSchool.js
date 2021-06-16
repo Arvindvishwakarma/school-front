@@ -2,8 +2,11 @@ import React, { useState, useRef } from 'react'
 import { Container, Card, Button, Form, Col } from 'react-bootstrap'
 import Menubar from '../MenuBar'
 import Zoom from 'react-reveal/Zoom'; 
+import {Redirect} from "react-router-dom"
 
 export default function AddSchool() {
+    const adminToken = localStorage.getItem('token')
+
     const [validated, setValidated] = useState(false);
 
     const handleSubmit = (event) => {
@@ -18,6 +21,10 @@ export default function AddSchool() {
 
         setValidated(true);
     };
+
+    if (!adminToken) {
+        return <Redirect to="/login" />
+    }
 
     return (
         <div>

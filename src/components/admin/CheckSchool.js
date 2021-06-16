@@ -3,8 +3,10 @@ import MenuBar from '../MenuBar'
 import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap'
 import Fade from 'react-reveal/Fade'
 import CheckMap from './CheckMap'
+import {Redirect} from "react-router-dom"
 
 export default function CheckSchool() {
+    const adminToken = localStorage.getItem('token')
 
     const [validated, setValidated] = useState(false);
 
@@ -84,6 +86,10 @@ export default function CheckSchool() {
 
         }
         setValidated(true);
+    }
+
+    if (!adminToken) {
+        return <Redirect to="/login" />
     }
 
     if (formDone) {
