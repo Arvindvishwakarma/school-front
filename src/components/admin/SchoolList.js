@@ -2,15 +2,17 @@ import React, { useState, useEffect } from 'react'
 import { Card, Button, Col, Row, Jumbotron, Modal, Table, Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Spinner from '../Spinner'
-import { FaEye, FaSchool, FaTrash } from "react-icons/fa";
+import { FaEye, FaSchool, FaTrash, FaUserGraduate } from "react-icons/fa";
 
 export default function SchoolList() {
 
     const [spin, setSpin] = useState(false)
     const [spinDetail, setSpinDetail] = useState(false)
     const [spinDelete, setSpinDelete] = useState(false)
+    const [spinSt, setSpinSt] = useState(false)
     const [schoolData, setSchoolData] = useState([])
     const [singleSchoolData, setSingleSchoolData] = useState([])
+    const [studentBySid, setStudentBySid] = useState([])
     const [schoolId, setSchoolId] = useState('')
 
     const [show, setShow] = useState(false);
@@ -20,6 +22,10 @@ export default function SchoolList() {
     const [showDelete, setShowDelete] = useState(false);
     const handleCloseDelete = () => setShowDelete(false);
     const handleShowDelete = () => setShowDelete(true);
+
+    const [showStudent, setShowStudent] = useState(false);
+    const handleCloseStudent = () => setShowStudent(false);
+    const handleShowStudent = () => setShowStudent(true);
 
     useEffect(() => {
         fetchSchoolData()
@@ -123,6 +129,57 @@ export default function SchoolList() {
             })
     }
 
+    function fetchStudentBySId(scId) {
+        setSpinSt(true)
+        const requestBody = {
+            query: `
+                    query{
+                        
+                        getStudentsBySchoolId(schoolId:"${scId}"){
+                            firstName
+                            lastName
+                            fatherName
+                            motherName
+                            dob
+                            gender
+                            catagory
+                            email
+                            contact
+                            class
+                            address
+                            studentLng
+                            studentLat
+                          }
+                    }
+    
+                `
+        };
+
+
+        fetch('http://localhost:4000/graphql', {
+            method: 'POST',
+            body: JSON.stringify(requestBody),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => {
+            if (res.status !== 200 && res.status !== 201) {
+                throw new Error('Failed')
+            }
+            return res.json()
+        })
+            .then(async (resData) => {
+                const fetchData = await resData.data.getStudentsBySchoolId
+                setStudentBySid(fetchData)
+                setSpinSt(false)
+            })
+
+            .catch(err => {
+                setSpinSt(false)
+                console.log(err)
+            })
+    }
+
     function deleteSchool(sId) {
         setSpinDelete(true)
         const requestBody = {
@@ -160,7 +217,7 @@ export default function SchoolList() {
             })
     }
 
-    console.log(schoolData)
+    console.log("student", studentBySid)
     return (
         <div>
             <Card className="schoolList">
@@ -175,7 +232,7 @@ export default function SchoolList() {
                             schoolData.map(data =>
                                 <Jumbotron style={{ padding: '5px', marginBottom: '10px' }}>
                                     <Row>
-                                        <Col md={10}>
+                                        <Col md={9}>
                                             <FaSchool /> {data.schoolName}
                                         </Col>
                                         <Col md={1}>
@@ -183,6 +240,12 @@ export default function SchoolList() {
                                                 handleShow()
                                                 fetchSingleSchoolData(data.id)
                                             }}><FaEye /></Button>
+                                        </Col>
+                                        <Col md={1}>
+                                            <Button size="sm" className="float-right" variant="info" onClick={() => {
+                                                handleShowStudent()
+                                                fetchStudentBySId(data.id)
+                                            }}><FaUserGraduate /></Button>
                                         </Col>
                                         <Col md={1}>
                                             <Button size="sm" className="float-right" variant="danger" onClick={() => {
@@ -256,6 +319,43 @@ export default function SchoolList() {
                 </Modal.Body>
             </Modal>
 
+
+            <Modal show={showStudent} onHide={handleCloseStudent} size="lg">
+                <Modal.Header closeButton>
+                    <Modal.Title>Students</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {
+                        spinSt ? <center><Spinner /></center> :
+                        studentBySid.length === 0 ? <center><h3>No Students Found!!!</h3></center>:
+                            <Table hover responsive>
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Gender</th>
+                                        <th>Email</th>
+                                        <th>Contact</th>
+                                        <th>Class</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        studentBySid.map(d =>
+                                            <tr>
+                                                <td>{d.firstName} {d.lastName}</td>
+                                                <td>{d.gender}</td>
+                                                <td>{d.email}</td>
+                                                <td>{d.contact}</td>
+                                                <td>{d.class}</td>
+                                            </tr>
+                                        )
+                                    }
+                                </tbody>
+                            </Table>
+                    }
+
+                </Modal.Body>
+            </Modal>
 
             <Modal show={showDelete} onHide={handleCloseDelete} centered size="sm">
                 <Modal.Body>

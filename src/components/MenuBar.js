@@ -13,9 +13,9 @@ export default function MenuBar() {
         <Navbar.Collapse id="navbarScroll">
           <Nav className="ml-auto">
             <Link to="/" className="nav-link">Home</Link>
-            <Link to="/howwork" className="nav-link">How Its Work</Link>
+            {/* <Link to="/howwork" className="nav-link">How Its Work</Link>
             <Link to="/about" className="nav-link">About Us</Link>
-            <Link to="/contact" className="nav-link">Contact Us</Link>
+            <Link to="/contact" className="nav-link">Contact Us</Link> */}
             {
               adminToken ?
                 <>
